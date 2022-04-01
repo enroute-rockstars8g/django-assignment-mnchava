@@ -2,9 +2,10 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8019"
     container_name: "django19"
     volumes:
-      - "/home/jesus_uribe/django/library:/usr/src/django/library"
+      - "/home/jesus_uribe/django-assignment-mnchava:/usr/src/django/library"
     ports:
-      - "9019:8000"
+      - "9019:8019"
+    network_mode: bridge
