@@ -15,9 +15,10 @@ services:
     ports:
       - "9019:8019"
     networks:
-      - my-app-network
+      - our-library-net
   postgres_db:
     image: postgres:14-alpine
+    container_name: "postgres19"
     environment:
       POSTGRES_PASSWORD: "1701"
       POSTGRES_DB: "jesus_uribedb"
@@ -27,8 +28,9 @@ services:
     volumes:
       - "/home/jesus_uribe/postgres:/usr/src/postgres"
     networks:
-      - my-app-network
+      - our-library-net
 
 networks:
-  my-app-network:
+  our-library-net:
+    external: true
     driver: bridge
