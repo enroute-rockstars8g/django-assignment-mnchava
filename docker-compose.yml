@@ -2,9 +2,37 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    container_name: "djangoXX"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8019"
+    container_name: "django19"
+    depends_on:
+      - postgres_db
+    environment:
+      PSQL_DBNAME: "jesus_uribedb"
+      PSQL_USERNAME: "jesus_uribe"
+      PSQL_PASS: "1701"
+      PSQL_HOST: "postgres_db"
+      PSQL_PORT: "5519"
     volumes:
-      - "/home/YOUR_USER/django/library:/usr/src/django/library"
+      - "/home/jesus_uribe/django-assignment-mnchava:/usr/src/django/library"
     ports:
-      - "90XX:8000"
+      - "9019:8019"
+    networks:
+      - our-library-net
+  postgres_db:
+    image: postgres:14-alpine
+    container_name: "postgres19"
+    environment:
+      POSTGRES_PASSWORD: "1701"
+      POSTGRES_DB: "jesus_uribedb"
+      POSTGRES_USER: "jesus_uribe"
+    ports:
+      - "10019:5519"
+    volumes:
+      - "/home/jesus_uribe/postgres:/usr/src/postgres"
+    networks:
+      - our-library-net
+
+networks:
+  our-library-net:
+    external: true
+    driver: bridge
