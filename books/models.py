@@ -14,5 +14,18 @@ class Book(models.Model):
 	authors = models.ManyToManyField(Author, through='BooksAuthors')
 
 class BooksAuthors(models.Model):
-	book = models.ForeignKey(Book, related_name = 'BooksAuthors', on_delete = models.DO_NOTHING)
-	author = models.ForeignKey(Author, on_delete = models.DO_NOTHING)
+	book = models.ForeignKey(Book, related_name = 'BookWithAuthors', on_delete = models.DO_NOTHING)
+	author = models.ForeignKey(Author, related_name='AuthorWithBooks', on_delete=models.DO_NOTHING)
+
+class Publisher(models.Model):
+	name = models.CharField(max_length = 256)
+
+class Customer(models.Model):
+	username = models.CharField(max_length = 24, unique = True)
+	email = models.CharField(max_length = 254, unique = True)
+
+class Review(models.Model):
+	rating = models.PositiveSmallIntegerField()
+	review = models.CharField(max_length = 1024)
+	customer = models.ForeignKey(Customer, on_delete = models.DO_NOTHING)
+	book = models.ForeignKey(Book, on_delete = models.DO_NOTHING)

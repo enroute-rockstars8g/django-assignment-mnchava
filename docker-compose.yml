@@ -4,6 +4,8 @@ services:
     build: .
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8019"
     container_name: "django19"
+    depends_on:
+      - postgres_db
     environment:
       PSQL_DBNAME: "jesus_uribedb"
       PSQL_USERNAME: "jesus_uribe"

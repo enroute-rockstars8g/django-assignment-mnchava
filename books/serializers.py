@@ -1,3 +1,4 @@
+from dataclasses import fields
 from rest_framework import serializers
 from .models import *
 
@@ -16,3 +17,18 @@ class BooksAuthorsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = BooksAuthors
 		fields = ['id', 'book', 'author']
+
+class CustomerSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Customer
+		fields = ['id', 'username', 'email']
+
+class ReviewSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Review
+		fields = ['id', 'rating', 'review', 'customer', 'book']
+
+class PublisherSerializer(serializers.ModelSerializer):
+	class Meta:
+		model =  Publisher
+		fields = ['id', 'name']
